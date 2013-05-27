@@ -43,7 +43,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 
-app.get('/recieve', function(req, res){
+app.post('/recieve', function(req, res){
     console.log(req);
 });
 

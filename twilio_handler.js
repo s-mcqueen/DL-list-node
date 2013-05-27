@@ -64,11 +64,11 @@ function handleOther(number){
 
 
 
-export.getFromAndBody = getFromAndBody;
-export.sendMessage = sendMessage;
-export.handleBadText = handleBadText;
-export.handleBadListName = handleBadListName;
-export.handleBadPrivileges = handleBadPrivileges;
-export.handleOther = handleOther;
+exports.getFromAndBody = getFromAndBody;
+exports.sendMessage = sendMessage;
+exports.handleBadText = handleBadText;
+exports.handleBadListName = handleBadListName;
+exports.handleBadPrivileges = handleBadPrivileges;
+exports.handleOther = handleOther;
 
 

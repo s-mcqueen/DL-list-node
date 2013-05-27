@@ -8,21 +8,9 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , twilio = require('twilio')
-  , parse = require('./sms_parse'); // sms parsing
+  , twiliohandler = require('./twilio_handler');
 
-// twilio set up
-var twilioId = "AC65492579e6a94943a72ebed4c4f4b788";
-var twilioToken = "81ebc16c6a6fd61bf25631ee0b649e01";
-var twilioNum = "+13602052266";
-var client = new twilio.RestClient(twilioId, twilioToken);
-
-// var mess = client.sms.messages.list(function(err, data){
-//     data.sms_messages.forEach(function(m){
-//         console.log(m.status);
-//     })
-// });
-
+// express set up
 var app = express();
 
 // all environments
@@ -41,15 +29,18 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// routes
+    
 app.get('/', routes.index);
 
 app.post('/recieve', function(req, res){
-    
-    client.sms.messages(req.body.SmsMessageSid).get(function(err, message) {
-        console.log(message.body);
-        console.log(message.to);
-    });
+    var fromAndBody = twiliohandler.getFromAndBody(req);
+    var from = fromAndBody[0];
+    var body = fromAndBody[1];
 
+    console.log(body);
+    // test for authorization
+        // pass handling opperations off
 });
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -44,7 +44,12 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/recieve', function(req, res){
-    console.log(req);
+    
+    client.sms.messages(req.body.SmsMessageSid).get(function(err, message) {
+        console.log(message.body);
+        console.log(message.to);
+    });
+
 });
 
 http.createServer(app).listen(app.get('port'), function(){

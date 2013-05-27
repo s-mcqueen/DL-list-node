@@ -44,11 +44,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.get('/recieve', function(req, res){
-    var body = req.values.get('Body');
-    var from = req.values.get('From');
-
-    console.log(body);
-    console.log(from);
+    console.log(req.connection);
 });
 
 http.createServer(app).listen(app.get('port'), function(){

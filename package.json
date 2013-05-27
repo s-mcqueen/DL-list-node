@@ -9,5 +9,9 @@
     "express": "3.2.5",
     "twilio": "*",
     "jade": "*"
+  },
+  "engines": {
+    "node": "0.10.8",
+    "npm": "1.2.21"
   }
 }

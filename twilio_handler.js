@@ -64,4 +64,11 @@ function handleOther(number){
 
 
 
+export.getFromAndBody = getFromAndBody;
+export.sendMessage = sendMessage;
+export.handleBadText = handleBadText;
+export.handleBadListName = handleBadListName;
+export.handleBadPrivileges = handleBadPrivileges;
+export.handleOther = handleOther;
+
 

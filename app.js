@@ -34,9 +34,6 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/recieve', function(req, res){
-
-    console.log(req.body.SmsMessageSid);
-
     twiliohandler.getFromAndBody(req, function(value){
         var from = value[0];
         var body = value[1];

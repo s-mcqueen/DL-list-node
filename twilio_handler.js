@@ -11,9 +11,7 @@ var client = new twilio.RestClient(twilioId, twilioToken);
 
 // this may still be BROKEN!!
 function getFromAndBody(req, callback){
-    console.log(req);
-    console.log(req.body);
-    console.log(req.body.SmsMessageSid);
+
     var sid = req.body.SmsMessageSid;
     console.log(sid);
     client.sms.messages(testsid).get(function(err, message){

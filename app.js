@@ -34,14 +34,17 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/recieve', function(req, res){
-    twiliohandler.getFromAndBody(function(req, value){
-        var from = value[0];
-        var body = value[1];
-        console.log(from);
-        console.log(body);
-        // test for authorization
-            // pass handling opperations off
-    });
+
+    console.log(req.body);
+
+    // twiliohandler.getFromAndBody(function(req, value){
+    //     var from = value[0];
+    //     var body = value[1];
+    //     console.log(from);
+    //     console.log(body);
+    //     // test for authorization
+    //         // pass handling opperations off
+    // });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

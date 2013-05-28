@@ -13,7 +13,7 @@ var client = new twilio.RestClient(twilioId, twilioToken);
 function getFromAndBody(req, callback){
     var sid = req.body.SmsMessageSid;
     console.log(sid);
-    client.sms.messages(testsid).get(function(err, message){
+    client.sms.messages(sid).get(function(err, message){
         var value = [message.from, message.body];
         callback(value);
     });

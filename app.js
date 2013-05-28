@@ -3,12 +3,12 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path')
-  , twiliohandler = require('./twilio_handler');
+var express = require('express'),
+    routes = require('./routes'),
+    user = require('./routes/user'),
+    http = require('http'),
+    path = require('path'),
+    twiliohandler = require('./twilio_handler');
 
 // express set up
 var app = express();
@@ -34,13 +34,14 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 app.post('/recieve', function(req, res){
-    var fromAndBody = twiliohandler.getFromAndBody(req);
-    var from = fromAndBody[0];
-    var body = fromAndBody[1];
-
-    console.log(body);
-    // test for authorization
-        // pass handling opperations off
+    twiliohandler.getFromAndBody(function(req, value){
+        var from = value[0];
+        var body = value[1];
+        console.log(from);
+        console.log(body);
+        // test for authorization
+            // pass handling opperations off
+    });
 });
 
 http.createServer(app).listen(app.get('port'), function(){

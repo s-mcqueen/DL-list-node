@@ -7,18 +7,20 @@ var twilioToken = "81ebc16c6a6fd61bf25631ee0b649e01";
 var twilioNum = "+13602052266";
 var client = new twilio.RestClient(twilioId, twilioToken);
 
-
 // incoming texts
 
 // this may still be BROKEN!!
 function getFromAndBody(req, callback){
+    console.log(req);
+    console.log(req.body);
+    console.log(req.body.SmsMessageSid);
     var sid = req.body.SmsMessageSid;
+    console.log(sid);
     client.sms.messages(testsid).get(function(err, message){
         var value = [message.from, message.body];
         callback(value);
     });
 }
-
 
 function sendMessage(toNum, body){
     client.sms.messages.create({

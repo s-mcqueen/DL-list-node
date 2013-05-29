@@ -9,7 +9,6 @@ var client = new twilio.RestClient(twilioId, twilioToken);
 
 // incoming texts
 
-// this may still be BROKEN!!
 function getFromAndBody(req, callback){
     var sid = req.body.SmsMessageSid;
     client.sms.messages(sid).get(function(err, message){
@@ -63,7 +62,6 @@ function handleOther(number){
 
 // process unauthorized
 
-handleOther("+12067187746");
 
 exports.getFromAndBody = getFromAndBody;
 exports.sendMessage = sendMessage;

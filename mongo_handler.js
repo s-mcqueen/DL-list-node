@@ -7,7 +7,6 @@ var dbUser = 'smcqueen';
 var dbPass = 'Castle1q'; // annoying to make this plaintext..
 var dbHostAddr = 'ds027628.mongolab.com:27628/mcqueen-blog';
 
-
 mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHostAddr);
 
 var db = mongoose.connection;
@@ -33,7 +32,7 @@ var DListSchema = new Schema({
 
 var MessageSchema = new Schema({
     createdAt: Date,
-    message: String,
+    body: String,
     toList: [DList],
     fromUser: [User]
 });
@@ -59,6 +58,7 @@ function newAuthUser(userName, phoneNumber, listPrivileges){
 }
 
 // callback is only called if user is authorized
+// use this function with appropriate callback to access authuser fields
 function getAuthorized(number, callback){
     var query = AuthorizedUser.findOne({ 'phoneNumber': number });
     query.exec(function (err, user) {
@@ -81,6 +81,16 @@ function newUser(userName, phoneNumber, email, listMembership){
         }
     });
     return user;
+}
+
+// callback is only called if user exists
+function getUser(number, callback){
+    var query = User.findOne({'phoneNumber': number});
+    query.exec(function (err, user) {
+        if(user !== null){
+            callback(user);
+        }
+    });
 }
 
 // list functions
@@ -117,47 +127,23 @@ function addToList(listName, newNumber){
     });
 }
 
+// message functions
+function newMessage(messageBody, listName, fromUser){
+    var message = Message();
+    message.body = messageBody;
+    message.toList = listName;
+    message.fromUser = fromUser;
+    message.save(function(err){
+        if (err){
+            console.log("message save error");
+        }
+    });
+    return message;
+}
 
 db.once('open', function callback(){
     console.log('connection open');
 
-    // var ta1 = newAuthUser('skunselman', '+12', []);
-
-    addToList('senate', '+66666');
-
-
-    // TESTING!
-
-
-    // getAuthorized('+12', function (user){
-    //     console.log(user.userName);
-    // });
-
-    // var testList1 = new DList({listName: 'senate', phoneNumbers: ['+12067187746', '+12063250402'] });
-    // testList1.save(function (err) {
-    //     if (err){
-    //         console.log('testList1 save error');
-    //     }
-    // });
-
-    // var testList2 = new DList({listName: 'ascmc', phoneNumbers: ['+12345678901', '+12063250402'] });
-
-    // testList2.save(function (err) {
-    //     if (err){
-    //         console.log('testList2 save error');
-    //     }
-    // });
-
-    // var testUser = new User();
-    // testUser.userName = 'sean';
-    // testUser.phoneNumber = '+12067187746';
-    // testUser.email = 'sean@mcqueen.net';
-    // testUser.listMembership = [testList1, testList2];
-
-    // testUser.save(function (err) {
-    //     if (err){
-    //         console.log('testUser save error');
-    //     }
-    // });
+    // db event loop
 
 });
